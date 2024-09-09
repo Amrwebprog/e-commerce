@@ -1,20 +1,37 @@
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { GlobalContext } from './GlobalContext'
 import SideNav from './SideNav'
 
 export default function NavBar() {
   const { sideNavToggle, setSideNavToggle } = useContext(GlobalContext)
+  const [productData, setProductData] = useState([])
+  const [categories, setCategories] = useState([])
+
   const ToggleSideNav = () => {
     setSideNavToggle(!sideNavToggle)
   }
+
+  // Load data from localStorage
+  useEffect(() => {
+    const storedData = localStorage.getItem('Allproducts')
+    if (storedData) {
+      const parsedData = JSON.parse(storedData)
+      setProductData(parsedData)
+      const uniqueCategories = [
+        ...new Set(parsedData.map((item) => item.Categores)),
+      ]
+      setCategories(uniqueCategories)
+    }
+  }, [])
+
   return (
     <>
-      <div className="bg-dark col-12 p-2 position-fixed z-3">
+      <div className="bg-dark col-12 p-2 z-3">
         <div className="d-flex flex-row justify-content-between align-items-center p-2 container-lg">
-          <div id="navbar" className="d-flex flex-row gap-5 ">
+          <div id="navbar" className="d-flex flex-row gap-5">
             <li className="nav-item dropdown d-flex">
               <Link
                 className="nav-link dropdown-toggle text-decoration-none text-light"
@@ -27,157 +44,37 @@ export default function NavBar() {
                 Categories
               </Link>
               <div
-                className="dropdown-menu p-3 flex-wrap "
+                className="dropdown-menu p-3 flex-wrap"
                 aria-labelledby="navbarDropdown"
               >
-                <div className="d-flex flex-row gap-5 col-6 ">
-                  {/* Category 1: Laptops */}
-                  <ul className="list-group-item-dark col-sm-6">
-                    <li className="fw-bold mb-2 animate__animated animate__fadeInDown">
-                      Laptops
-                    </li>
-                    <li>
+                <div className="d-flex flex-row gap-5 col-6">
+                  {categories.map((category, index) => (
+                    <ul key={index} className="list-group-item-dark col-sm-6">
                       <Link
-                        className="dropdown-item animate__animated animate__lightSpeedInLeft"
-                        to="#"
+                        to={`/products/${category}`} // Dynamically link to category page
+                        className="dropdown-item fw-bold mb-2 animate__animated animate__fadeInDown"
                       >
-                        Lenovo
+                        {category}
                       </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="dropdown-item animate__animated animate__lightSpeedInLeft"
-                        to="#"
-                      >
-                        Dell
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="dropdown-item animate__animated animate__lightSpeedInLeft"
-                        to="#"
-                      >
-                        HP
-                      </Link>
-                    </li>
-                  </ul>
 
-                  {/* Category 2: hards */}
-                  <ul className="list-group-item-dark col-sm-6">
-                    <li className="fw-bold mb-2 animate__animated animate__fadeInDown">
-                      Storage
-                    </li>
-                    <li>
-                      <Link
-                        className="dropdown-item  animate__animated animate__lightSpeedInLeft"
-                        to="#"
-                      >
-                        External Hards
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="dropdown-item animate__animated animate__lightSpeedInLeft"
-                        to="#"
-                      >
-                        Internal Hards
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="dropdown-item animate__animated animate__lightSpeedInLeft"
-                        to="#"
-                      >
-                        SSD
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="dropdown-item animate__animated animate__lightSpeedInLeft"
-                        to="#"
-                      >
-                        M.2
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="dropdown-item animate__animated animate__lightSpeedInLeft"
-                        to="#"
-                      >
-                        External SSD
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="dropdown-item animate__animated animate__lightSpeedInLeft"
-                        to="#"
-                      >
-                        Memory Cards
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="dropdown-item animate__animated animate__lightSpeedInLeft"
-                        to="#"
-                      >
-                        Flash Disks
-                      </Link>
-                    </li>
-                  </ul>
-                  <ul className="list-group-item-dark col-sm-6">
-                    {/* Category 2: rams */}
-                    <li className="fw-bold mb-2 animate__animated animate__fadeInDown">
-                      Accessories
-                    </li>
-                    <li>
-                      <Link
-                        className="dropdown-item animate__animated animate__lightSpeedInLeft "
-                        to="#"
-                      >
-                        Mouses And Keyboards
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="dropdown-item animate__animated animate__lightSpeedInLeft "
-                        to="#"
-                      >
-                        HeadPhones
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="dropdown-item animate__animated animate__lightSpeedInLeft"
-                        to="asd"
-                      >
-                        Mousepad
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="dropdown-item animate__animated animate__lightSpeedInLeft"
-                        to="#"
-                      >
-                        Controlers
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="dropdown-item animate__animated animate__lightSpeedInLeft"
-                        to="#"
-                      >
-                        Speakers
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="dropdown-item animate__animated animate__lightSpeedInLeft"
-                        to="#"
-                      >
-                        Microphones
-                      </Link>
-                    </li>
-                  </ul>
+                      {[
+                        ...new Set(
+                          productData
+                            .filter((product) => product.Categores === category)
+                            .map((product) => product.brand)
+                        ),
+                      ].map((brand, i) => (
+                        <li key={i}>
+                          <Link
+                            className="dropdown-item animate__animated animate__lightSpeedInLeft"
+                            to={`/products/${category}/${brand}`} // Dynamically link to brand
+                          >
+                            {brand}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  ))}
                 </div>
               </div>
             </li>
@@ -198,25 +95,21 @@ export default function NavBar() {
               Contact us
             </Link>
           </div>
+
           <div
             id="mobnav"
-            className=" d-none flex-row justify-content-between col-12 gap-5"
+            className="d-none flex-row justify-content-between col-12 gap-5"
           >
             <div className="text-white">
               <h1>Logo</h1>
             </div>
-            <div
-              className="menue"
-              onClick={() => {
-                ToggleSideNav()
-              }}
-            >
+            <div className="menue" onClick={ToggleSideNav}>
               <FontAwesomeIcon className="text-white fs-1" icon={faBars} />
             </div>
           </div>
         </div>
       </div>
-      {sideNavToggle ? <SideNav /> : null}
+      {sideNavToggle && <SideNav />}
     </>
   )
 }

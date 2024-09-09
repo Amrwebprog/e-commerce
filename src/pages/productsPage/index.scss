@@ -1,1 +1,147 @@
+#openFilter {
+  transition: all 0.3s ease;
 
+  &:hover {
+    background-color: #052049;
+    cursor: pointer;
+    transform: scale(1.1);
+  }
+}
+
+#line {
+  min-height: 2px;
+  background-color: gray;
+
+  #line-tow {
+    min-height: 2px;
+    background-color: burlywood;
+  }
+}
+
+#myIcon {
+  cursor: pointer;
+}
+
+.product-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden; // لمنع تجاوز المحتوى حدود الكارت
+
+  // تغيير لون الكارت بأكمله عند hover
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.8); // لون داكن للكارت بأكمله عند hover
+    color: white; // لتغيير لون النصوص إلى الأبيض عند التمرير
+  }
+
+  // عند تمرير الماوس على الكارت بالكامل، نؤثر على الصورة
+  &:hover .product-image img {
+    opacity: 0.6; // تغميق الصورة عند تمرير الماوس على الكارت بالكامل
+    transform: scale(1.05); // تكبير طفيف للصورة لتعزيز التأثير
+  }
+
+  // نعرض الـ overlay عندما يمرر الماوس على الكارت بأكمله
+  &:hover .overlay {
+    opacity: 1;
+  }
+
+  .product-image {
+    position: relative;
+
+    img {
+      width: 100%;
+      display: block;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .badge {
+      position: absolute;
+      padding: 5px 10px;
+      font-size: 12px;
+      border-radius: 5px;
+      color: white;
+
+      &.company-name {
+        top: 10px;
+        left: 10px;
+      }
+
+      &.new {
+        top: 10px;
+        right: 10px;
+      }
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6); // لون خلفية رمادي شفاف
+      opacity: 0; // الافتراضي يكون مخفيًا
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 1; // تأكد من أن الـ overlay فوق الصورة والعناصر الأخرى
+      transition: opacity 0.3s ease;
+
+      // لإظهار الـ overlay عند hover على الكارت بأكمله
+      &:hover {
+        opacity: 1;
+      }
+
+      #myIcon {
+        font-size: 30px;
+        color: white;
+      }
+
+      .add-to-cart {
+        padding: 8px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: white;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+    }
+  }
+
+  .product-info {
+    padding: 15px;
+    transition: color 0.3s ease;
+
+    .product-name,
+    .product-description,
+    .product-price {
+      transition: color 0.3s ease;
+    }
+
+    .product-name {
+      font-size: 18px;
+      margin: 10px 0 5px;
+    }
+
+    .product-description {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .product-price {
+      font-size: 20px;
+      font-weight: bold;
+    }
+  }
+}
+
+.headercolor {
+  background-color: rgb(241, 245, 249) !important;
+}

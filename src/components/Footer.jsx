@@ -86,13 +86,22 @@ export default function Footer() {
                 <h6>Categories</h6>
               </div>
               <div className="d-flex flex-column text-white  gap-2">
-                <Link className="text-decoration-none text-white mx-2" to="#">
+                <Link
+                  className="text-decoration-none text-white mx-2"
+                  to="/products/laptop"
+                >
                   Laptops
                 </Link>
-                <Link className="text-decoration-none text-white mx-2" to="#">
+                <Link
+                  className="text-decoration-none text-white mx-2"
+                  to="/products/storage"
+                >
                   Storages
                 </Link>
-                <Link className="text-decoration-none text-white mx-2" to="#">
+                <Link
+                  className="text-decoration-none text-white mx-2"
+                  to="/products/Accessories"
+                >
                   Accessories
                 </Link>
               </div>
