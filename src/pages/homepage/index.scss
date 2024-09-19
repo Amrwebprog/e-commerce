@@ -1,0 +1,140 @@
+.heroSwiper {
+
+  min-height: 50vh;
+  height: 50vh;
+
+  img {
+    min-height: 100%;
+    object-fit: cover;
+  }
+
+  .swiper-wrapper {
+    min-height: 100% !important;
+    min-height: 100% !important;
+  }
+
+  .swiper-slide {
+    min-height: 100% !important;
+  }
+}
+
+.offer-container {
+  height: 100% !important;
+
+  @media (max-width:768px) {
+    height: 50% !important;
+  }
+}
+
+.offers {
+  height: 50%;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill !important;
+  }
+
+  @media (max-width:768px) {
+    height: 25% !important;
+  }
+}
+
+
+
+
+.swiper-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+
+  .swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+    margin: 0 8px;
+    background-color: rgba(121, 116, 116, 0.5);
+    border-radius: 50%;
+    opacity: 1;
+    transition: background-color 0.3s ease;
+
+    &-active {
+      background-color: #381dd1;
+      transform: scale(1.2);
+    }
+  }
+}
+
+.section-one {
+  background-color: rgba(112, 112, 112, 0.377);
+  flex: 1;
+}
+
+.offers {
+  img {
+    object-fit: cover;
+  }
+}
+
+.productSwiper {
+  height: 20vh !important;
+  min-height: 20vh !important;
+}
+
+.category-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 10px;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05); // تكبير العنصر عند التمرير
+  }
+
+  .category-item {
+    background-color: #f5f5f5; // لون الخلفية للعنصر
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); // إضافة ظل خفيف
+    text-align: center;
+    padding: 15px;
+    width: 100%;
+
+    .category-icon {
+      width: 100px; // حجم الصورة
+      height: 100px;
+      object-fit: cover; // ضبط حجم الصورة مع الحفاظ على الأبعاد
+      border-radius: 50%; // جعل الصورة دائرية
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 16px;
+      font-weight: bold;
+      color: #333; // لون النص
+      margin-top: 10px;
+    }
+  }
+}
+
+// تحسين عرض الباجينايشن
+.swiper-pagination {
+  bottom: 10px !important;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+
+  .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    background-color: #999;
+    opacity: 1;
+    transition: background-color 0.3s ease;
+
+    &.swiper-pagination-bullet-active {
+      background-color: #2575fc;
+    }
+  }
+}

@@ -145,3 +145,29 @@
 .headercolor {
   background-color: rgb(241, 245, 249) !important;
 }
+
+.brand-item {
+  display: flex;
+  align-items: center;
+
+  .form-check-input {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+  }
+
+  .form-check-label {
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+  }
+
+  &:hover {
+    background-color: #f1f1f1;
+  }
+}
+
+.form-check .form-check-input {
+  float: left;
+  margin-left: 0 !important;
+}

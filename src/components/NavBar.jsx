@@ -6,7 +6,8 @@ import { GlobalContext } from './GlobalContext'
 import SideNav from './SideNav'
 
 export default function NavBar() {
-  const { sideNavToggle, setSideNavToggle } = useContext(GlobalContext)
+  const { sideNavToggle, setSideNavToggle, setFilterBrand } =
+    useContext(GlobalContext)
   const [productData, setProductData] = useState([])
   const [categories, setCategories] = useState([])
 
@@ -14,7 +15,6 @@ export default function NavBar() {
     setSideNavToggle(!sideNavToggle)
   }
 
-  // Load data from localStorage
   useEffect(() => {
     const storedData = localStorage.getItem('Allproducts')
     if (storedData) {
@@ -27,6 +27,12 @@ export default function NavBar() {
     }
   }, [])
 
+  const handleBrandClick = (brand) => {
+    setFilterBrand([brand.toLowerCase()])
+  }
+  const handleCatClick = () => {
+    setFilterBrand([])
+  }
   return (
     <>
       <div className="bg-dark col-12 p-2 z-3">
@@ -51,8 +57,11 @@ export default function NavBar() {
                   {categories.map((category, index) => (
                     <ul key={index} className="list-group-item-dark col-sm-6">
                       <Link
-                        to={`/products/${category}`} // Dynamically link to category page
+                        to={`/products/${category}`}
                         className="dropdown-item fw-bold mb-2 animate__animated animate__fadeInDown"
+                        onClick={() => {
+                          handleCatClick()
+                        }}
                       >
                         {category}
                       </Link>
@@ -66,8 +75,9 @@ export default function NavBar() {
                       ].map((brand, i) => (
                         <li key={i}>
                           <Link
+                            onClick={() => handleBrandClick(brand)}
                             className="dropdown-item animate__animated animate__lightSpeedInLeft"
-                            to={`/products/${category}/${brand}`} // Dynamically link to brand
+                            to={`/products/${category}`}
                           >
                             {brand}
                           </Link>
