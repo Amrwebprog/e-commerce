@@ -1,13 +1,6 @@
-import axios from 'axios'
-import { createContext, useEffect, useState } from 'react'
-
-const GlobalContext = createContext()
-
-const GlobalProvider = ({ children }) => {
-  const data = [
+/* const data = [
     {
-      product_img: null,
-      new_arive: true,
+      product_id: 0,
       offer: 0,
       product_name: 'Laptop 1',
       Categores: 'Laptop',
@@ -19,9 +12,7 @@ const GlobalProvider = ({ children }) => {
       stock: 207,
     },
     {
-      product_img: null,
-
-      new_arive: true,
+      product_id: 1,
       offer: 0,
       product_name: 'Laptop 2',
       Categores: 'Laptop',
@@ -33,9 +24,7 @@ const GlobalProvider = ({ children }) => {
       stock: 253,
     },
     {
-      product_img: null,
-
-      new_arive: true,
+      product_id: 2,
       offer: 0,
       product_name: 'Laptop 3',
       Categores: 'Laptop',
@@ -47,9 +36,7 @@ const GlobalProvider = ({ children }) => {
       stock: 380,
     },
     {
-      product_img: null,
-
-      new_arive: true,
+      product_id: 3,
       offer: 0,
       product_name: 'Laptop 4',
       Categores: 'Laptop',
@@ -61,8 +48,7 @@ const GlobalProvider = ({ children }) => {
       stock: 408,
     },
     {
-      product_img: null,
-      new_arive: true,
+      product_id: 4,
       offer: 0,
       product_name: 'Laptop 5',
       Categores: 'Laptop',
@@ -74,9 +60,7 @@ const GlobalProvider = ({ children }) => {
       stock: 213,
     },
     {
-      product_img: null,
-
-      new_arive: true,
+      product_id: 5,
       offer: 0,
       product_name: 'Laptop 6',
       Categores: 'Laptop',
@@ -88,9 +72,7 @@ const GlobalProvider = ({ children }) => {
       stock: 153,
     },
     {
-      product_img: null,
-
-      new_arive: true,
+      product_id: 6,
       offer: 0,
       product_name: 'Laptop 7',
       Categores: 'Laptop',
@@ -102,8 +84,7 @@ const GlobalProvider = ({ children }) => {
       stock: 331,
     },
     {
-      product_img: null,
-      new_arive: true,
+      product_id: 7,
       offer: 0,
       product_name: 'Laptop 8',
       Categores: 'Laptop',
@@ -115,9 +96,7 @@ const GlobalProvider = ({ children }) => {
       stock: 404,
     },
     {
-      product_img: null,
-
-      new_arive: true,
+      product_id: 8,
       offer: 0,
       product_name: 'Laptop 9',
       Categores: 'Laptop',
@@ -129,8 +108,7 @@ const GlobalProvider = ({ children }) => {
       stock: 263,
     },
     {
-      product_img: null,
-      new_arive: true,
+      product_id: 9,
       offer: 0,
       product_name: 'External Hard 1TB',
       Categores: 'Storage',
@@ -142,9 +120,7 @@ const GlobalProvider = ({ children }) => {
       stock: 421,
     },
     {
-      product_img: null,
-
-      new_arive: true,
+      product_id: 10,
       offer: 0,
       product_name: 'Internal Hard 2TB',
       Categores: 'Storage',
@@ -156,8 +132,7 @@ const GlobalProvider = ({ children }) => {
       stock: 385,
     },
     {
-      product_img: null,
-      new_arive: true,
+      product_id: 11,
       offer: 0,
       product_name: 'SSD 512GB',
       Categores: 'Storage',
@@ -169,9 +144,7 @@ const GlobalProvider = ({ children }) => {
       stock: 476,
     },
     {
-      product_img: null,
-
-      new_arive: true,
+      product_id: 12,
       offer: 0,
       product_name: 'M.2 SSD 1TB',
       Categores: 'Storage',
@@ -183,9 +156,7 @@ const GlobalProvider = ({ children }) => {
       stock: 135,
     },
     {
-      product_img: null,
-
-      new_arive: true,
+      product_id: 13,
       offer: 0,
       product_name: 'External SSD 256GB',
       Categores: 'Storage',
@@ -197,9 +168,7 @@ const GlobalProvider = ({ children }) => {
       stock: 413,
     },
     {
-      product_img: null,
-
-      new_arive: true,
+      product_id: 14,
       offer: 0,
       product_name: 'Memory Card 128GB',
       Categores: 'Storage',
@@ -211,8 +180,7 @@ const GlobalProvider = ({ children }) => {
       stock: 490,
     },
     {
-      product_img: null,
-      new_arive: true,
+      product_id: 15,
       offer: 30,
       product_name: 'USB Flash Drive 64GB',
       Categores: 'Storage',
@@ -224,9 +192,7 @@ const GlobalProvider = ({ children }) => {
       stock: 413,
     },
     {
-      product_img: null,
-
-      new_arive: true,
+      product_id: 16,
       offer: 50,
       product_name: 'Gaming Mouse',
       Categores: 'Accessories',
@@ -238,9 +204,7 @@ const GlobalProvider = ({ children }) => {
       stock: 450,
     },
     {
-      product_img: null,
-
-      new_arive: true,
+      product_id: 17,
       offer: 30,
       product_name: 'Mechanical Keyboard',
       Categores: 'Accessories',
@@ -252,8 +216,7 @@ const GlobalProvider = ({ children }) => {
       stock: 55,
     },
     {
-      product_img: null,
-      new_arive: true,
+      product_id: 18,
       offer: 25,
       product_name: 'Headphones',
       Categores: 'Accessories',
@@ -265,9 +228,7 @@ const GlobalProvider = ({ children }) => {
       stock: 376,
     },
     {
-      product_img: null,
-
-      new_arive: true,
+      product_id: 19,
       offer: 10,
       product_name: 'Mousepad XL',
       Categores: 'Accessories',
@@ -279,8 +240,7 @@ const GlobalProvider = ({ children }) => {
       stock: 121,
     },
     {
-      product_img: null,
-      new_arive: true,
+      product_id: 20,
       offer: 0,
       product_name: 'Gaming Controller',
       Categores: 'Accessories',
@@ -292,9 +252,7 @@ const GlobalProvider = ({ children }) => {
       stock: 254,
     },
     {
-      product_img: null,
-
-      new_arive: true,
+      product_id: 21,
       offer: 10,
       product_name: 'Bluetooth Speaker',
       Categores: 'Accessories',
@@ -305,59 +263,4 @@ const GlobalProvider = ({ children }) => {
         'Power: 20W, Battery life: Up to 12 hours, Connectivity: Bluetooth 5.0',
     },
   ]
-  const [sideNavToggle, setSideNavToggle] = useState(false)
-  const [maxPrice, setMaxPrice] = useState()
-  const [allProducts, setAllProducts] = useState([])
-  const [filterBrand, setFilterBrand] = useState([])
-  const [hideOutOfStock, setHideOutOfStock] = useState(false)
-  const [minPrice, setMinPrice] = useState()
-  const [category, setCategory] = useState()
-  const fetchProducts = async () => {
-    try {
-      const res = await axios.get('http://localhost:1337/api/products')
-      console.log(res)
-      setAllProducts(res.data.data)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  const addProducts = async () => {
-    data.forEach(async (product) => {
-      try {
-        await axios.post('http://localhost:1337/api/products', {
-          data: product,
-        })
-        console.log('Product added:', product.product_name)
-      } catch (error) {
-        console.log('Error adding product:', product.product_name, error)
-      }
-    })
-  }
-
-  useEffect(() => {
-    fetchProducts()
-  }, [])
-
-  return (
-    <GlobalContext.Provider
-      value={{
-        sideNavToggle,
-        setSideNavToggle,
-        maxPrice,
-        setMaxPrice,
-        allProducts,
-        setAllProducts,
-        filterBrand,
-        setFilterBrand,
-        hideOutOfStock,
-        setHideOutOfStock,
-        minPrice,
-        setMinPrice,
-      }}
-    >
-      {children}
-    </GlobalContext.Provider>
-  )
-}
-
-export { GlobalContext, GlobalProvider }
+  localStorage.setItem('Allproducts', JSON.stringify(data)) */

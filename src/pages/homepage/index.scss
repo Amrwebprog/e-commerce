@@ -138,3 +138,46 @@
     }
   }
 }
+
+.wings-ads {
+  position: fixed;
+  right: 2vw; // العرض النسبي على يمين الشاشة
+  top: 20vh; // من الأعلى بنسبة للارتفاع
+  width: 15vw; // العرض النسبي بناءً على عرض الشاشة
+  height: 60vh; // ارتفاع نسبة مئوية من ارتفاع الشاشة
+  background-color: rgba(112, 112, 112, 0.9); // لون الخلفية مع شفافية
+  color: #fff; // لون النص
+  z-index: 1000; // التأكد من بقاء الإعلان فوق العناصر الأخرى
+
+  // نص المركز
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  // إخفاء الإعلان على الهواتف المحمولة والشاشات الصغيرة
+  @media (max-width: 768px) {
+    display: none;
+  }
+
+  // تحسين العرض على الشاشات الكبيرة جدًا
+  @media (min-width: 1600px) {
+    right: 3vw;
+    width: 12vw;
+    top: 15vh;
+  }
+
+  // تحسين العرض على الشاشات المتوسطة
+  @media (max-width: 1200px) {
+    width: 18vw;
+    right: 1.5vw;
+    top: 22vh;
+  }
+
+  // تحسين العرض على الشاشات الصغيرة مثل الأجهزة اللوحية
+  @media (max-width: 1024px) {
+    width: 20vw;
+    top: 25vh;
+    right: 1vw;
+  }
+}

@@ -1,5 +1,6 @@
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import axios from 'axios'
 import { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { GlobalContext } from './GlobalContext'
@@ -16,23 +17,32 @@ export default function NavBar() {
   }
 
   useEffect(() => {
-    const storedData = localStorage.getItem('Allproducts')
-    if (storedData) {
-      const parsedData = JSON.parse(storedData)
-      setProductData(parsedData)
-      const uniqueCategories = [
-        ...new Set(parsedData.map((item) => item.Categores)),
-      ]
-      setCategories(uniqueCategories)
+    const fetchData = async () => {
+      try {
+        const res = await axios.get('http://localhost:1337/api/products')
+        console.log(res.data.data)
+        setProductData(res.data.data)
+
+        const uniqueCategories = [
+          ...new Set(res.data.data.flatMap((item) => item.Categores)),
+        ]
+        setCategories(uniqueCategories)
+      } catch (error) {
+        console.log(error)
+      }
     }
+
+    fetchData()
   }, [])
 
   const handleBrandClick = (brand) => {
     setFilterBrand([brand.toLowerCase()])
   }
+
   const handleCatClick = () => {
     setFilterBrand([])
   }
+
   return (
     <>
       <div className="bg-dark col-12 p-2 z-3">
