@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import 'swiper/css'
 import 'swiper/css/autoplay'
 import { Autoplay, Navigation, Pagination } from 'swiper/modules'
@@ -23,6 +24,7 @@ const AutoSwiper = ({ swiperType, swiperData }) => {
 
     case 'category':
       filteredData = swiperData
+
       break
 
     default:
@@ -46,9 +48,18 @@ const AutoSwiper = ({ swiperType, swiperData }) => {
             <img
               src={img}
               className="category-icon"
-              alt={el?.product_name || 'Unnamed Product'}
+              alt={el?.product_name || el || 'Unnamed Product'}
             />
-            <p>{el?.product_name || 'Unnamed Product'}</p>
+            <p>{el?.product_name || el || 'Unnamed Product'}</p>
+            <Link
+              to={
+                'products/' +
+                (el.product_name ? el.Categores + '/' + el.product_name : el)
+              }
+              className="btn btn-primary"
+            >
+              Take A look
+            </Link>
           </div>
         </SwiperSlide>
       ))}

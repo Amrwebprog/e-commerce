@@ -1,4 +1,5 @@
-import { memo, useContext, useEffect } from 'react'
+import { memo, useContext } from 'react'
+import { Link } from 'react-router-dom'
 import AdsLong from '../../components/AdsLong'
 import AutoSwiper from '../../components/AutoSwiper'
 import Footer from '../../components/Footer'
@@ -16,18 +17,6 @@ const HomePage = () => {
     ...new Set(allProducts.map((cat) => cat.Categores || 'Unknown Category')),
   ]
 
-  useEffect(() => {
-    if (catSwiper.length > 0) {
-      console.log('Categories for Swiper:', catSwiper)
-    }
-  }, [catSwiper])
-
-  useEffect(() => {
-    if (allProducts.length > 0) {
-      console.log('All Products:', allProducts)
-    }
-  }, [allProducts])
-
   return (
     <>
       <WingsAds />
@@ -39,7 +28,12 @@ const HomePage = () => {
 
       <div className="col-12 section-tow d-flex flex-wrap mt-2">
         <div className="container-xxl d-flex flex-column gap-2">
-          <h1 className="m-0">Shop by categories</h1>
+          <div className="d-flex justify-content-between">
+            <h1 className="m-0">Shop by categories</h1>
+            <Link to={'/products'} className="btn btn-dark">
+              Browse All
+            </Link>
+          </div>
           <div id="line" className="col-12">
             <div id="line-tow" className="col-3"></div>
           </div>
@@ -51,7 +45,12 @@ const HomePage = () => {
 
       <div className="col-12 section-three d-flex flex-wrap mt-2">
         <div className="container-xxl d-flex flex-column gap-2">
-          <h1 className="m-0">Special Offer</h1>
+          <div className="d-flex justify-content-between">
+            <h1 className="m-0">Special offer</h1>
+            <Link to={'products/offers'}>
+              <button className="btn btn-dark">Browse All</button>
+            </Link>
+          </div>
           <div id="line" className="col-12">
             <div id="line-tow" className="col-3"></div>
           </div>
@@ -63,7 +62,10 @@ const HomePage = () => {
 
       <div className="col-12 section-three d-flex flex-wrap mt-2">
         <div className="container-xxl d-flex flex-column gap-2">
-          <h1 className="m-0">New Arrivals</h1>
+          <div className="d-flex justify-content-between">
+            <h1 className="m-0">New Arrival</h1>
+            <button className="btn btn-dark">Browse All</button>
+          </div>
           <div id="line" className="col-12">
             <div id="line-tow" className="col-3"></div>
           </div>
@@ -83,7 +85,10 @@ const HomePage = () => {
             return (
               <div key={index}>
                 <div className="category-section">
-                  <h2 className="m-0">{category}</h2>
+                  <div className="d-flex justify-content-between">
+                    <h1 className="m-2">{category}</h1>
+                    <button className="btn btn-dark">Browse All</button>
+                  </div>
                   <div id="line" className="col-12">
                     <div id="line-tow" className="col-3"></div>
                   </div>

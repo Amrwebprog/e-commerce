@@ -5,6 +5,7 @@ import { LoginContext } from './loginContext'
 
 export default function Signup() {
   const { hasAccount, setHasAccount } = useContext(LoginContext)
+  let errmsg = ''
   const username = useRef()
   const email = useRef()
   const phone_number = useRef()
@@ -66,22 +67,22 @@ export default function Signup() {
     const isValid = RegisterValidation()
 
     if (isValid) {
-      let phoneNumber = phone_number.current.value.trim().replace(/\D/g, '') // إزالة أي رموز غير الأرقام
+      let phoneNumber = phone_number.current.value.trim().replace(/\D/g, '')
       console.log(phoneNumber)
 
       const data = {
         username: username.current.value.trim(),
         email: email.current.value.trim(),
-        role: 'Authenticated',
+        role: '1',
         password: password.current.value.trim(),
-        phone_number: phoneNumber, // استخدام المتغير المعدل
+        phone_number: phoneNumber,
       }
 
       console.log(data)
 
       try {
         const response = await axios.post(
-          'http://localhost:1337/api/auth/local/register',
+          'http://localhost:1337/api/users',
           data
         )
         console.log(response.data)
@@ -90,13 +91,14 @@ export default function Signup() {
           title: 'نجاح',
           text: 'تم التسجيل بنجاح!',
         })
+        setHasAccount(!hasAccount)
       } catch (error) {
         if (error.response) {
           console.error(error.response.data)
           Swal.fire({
             icon: 'error',
             title: 'خطأ',
-            text: error.response.data.message || 'حدث خطأ غير متوقع.',
+            text: error.response.data.error.message || 'حدث خطأ غير متوقع.',
           })
         } else {
           console.error('Error', error.message)

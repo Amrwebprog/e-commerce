@@ -1,16 +1,40 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { GlobalContext } from './GlobalContext'
 
 export default function SideNav() {
-  const { sideNavToggle, setSideNavToggle } = useContext(GlobalContext)
+  const { sideNavToggle, setSideNavToggle, allProducts, setFilterBrand } =
+    useContext(GlobalContext)
+
+  const [filterProducts, setFilterProducts] = useState([])
   const [showCats, setShowCats] = useState(false)
+  const [categories, setCategories] = useState([])
   const ToggleCats = () => {
     setShowCats(!showCats)
   }
   const ToggleSideNav = () => {
     setSideNavToggle(!sideNavToggle)
   }
+
+  const getData = async () => {
+    const product = await allProducts
+    setFilterProducts(product)
+
+    // استخراج الفئات الفريدة
+    const uniqueCategories = [...new Set(product.flatMap((el) => el.Categores))]
+    setCategories(uniqueCategories)
+  }
+  const handleBrandClick = (brand) => {
+    setFilterBrand([brand.toLowerCase()])
+  }
+  const handleCatClick = () => {
+    setFilterBrand([])
+  }
+
+  useEffect(() => {
+    getData()
+  }, [])
+
   return (
     <div
       id="SideNavBar"
@@ -31,32 +55,41 @@ export default function SideNav() {
             id="sidNavCats"
             className="col-12 bg-light text-dark d-flex flex-column gap-4"
           >
-            <div className="category-section">
-              <h2 className="fs-2 text-uppercase mb-3">Laptops</h2>
-              <ul className="list-unstyled">
-                <li className="fs-4 mb-2">Hp</li>
-                <li className="fs-4 mb-2">Dell</li>
-                <li className="fs-4 mb-2">Lenovo</li>
-              </ul>
-            </div>
-
-            <div className="category-section">
-              <h2 className="fs-2 text-uppercase mb-3">Storage</h2>
-              <ul className="list-unstyled">
-                <li className="fs-4 mb-2">SSD</li>
-                <li className="fs-4 mb-2">HDD</li>
-                <li className="fs-4 mb-2">External Drives</li>
-              </ul>
-            </div>
-
-            <div className="category-section">
-              <h2 className="fs-2 text-uppercase mb-3">Accessories</h2>
-              <ul className="list-unstyled">
-                <li className="fs-4 mb-2">Mouses</li>
-                <li className="fs-4 mb-2">Keyboards</li>
-                <li className="fs-4 mb-2">Headphones</li>
-              </ul>
-            </div>
+            {categories.map((category, idx) => (
+              <div key={idx} className="category-section">
+                <Link
+                  to={`/products/${category}`}
+                  onClick={handleCatClick}
+                  className="fs-2 text-uppercase mb-3 btn btn-primary "
+                >
+                  {category}
+                </Link>
+                <ul className="list-unstyled">
+                  {[
+                    ...new Set(
+                      filterProducts
+                        .filter((product) =>
+                          product.Categores.includes(category)
+                        )
+                        .map((product) => product.brand)
+                    ),
+                  ].map((brand, i) => (
+                    <li
+                      key={i}
+                      className="fs-4 mb-2 d-flex justify-content-center"
+                    >
+                      <Link
+                        to={`/products/${category}`}
+                        onClick={() => handleBrandClick(brand)}
+                        className="text-decoration-none text-white btn btn-dark p-2 fs-2 col-10"
+                      >
+                        {brand}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         )}
 

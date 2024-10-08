@@ -18,19 +18,22 @@ export default function FilterMenue() {
   const location = useLocation()
   const newPathname = location.pathname.replace(/^\//, '')
   const finalPathname = newPathname.replace(/\//g, ' / ')
-  const [showstock, setShowStock] = useState(false)
+  const [showStock, setShowStock] = useState(false)
   const [showBrand, setShowBrand] = useState(false)
   const [showPrice, setShowPrice] = useState(false)
   const [currentMinPrice, setCurrentMinPrice] = useState(minPrice)
+
   const cat = location.pathname.split('/')
   const catlength = cat.length
   const category = cat[catlength - 1]
 
-  // تحديث maxPrice بناءً على الفئة المختارة
   useEffect(() => {
     if (allProducts.length > 0) {
       const filteredProducts = allProducts.filter(
-        (el) => el.Categores.toLowerCase() === category.toLowerCase()
+        (el) =>
+          !category || // تأكد من أن الـ category ليس فارغًا
+          category.toLowerCase() === 'products' ||
+          el.Categores.toLowerCase() === category.toLowerCase()
       )
       if (filteredProducts.length > 0) {
         const max = Math.max(...filteredProducts.map((el) => el.price))
@@ -39,29 +42,29 @@ export default function FilterMenue() {
     }
   }, [allProducts, category, setMaxPrice])
 
-  // تحديث minPrice بناءً على الفئة المختارة
   useEffect(() => {
     if (allProducts.length > 0) {
       const filteredProducts = allProducts.filter(
-        (el) => el.Categores.toLowerCase() === category.toLowerCase()
+        (el) =>
+          !category || // تأكد من أن الـ category ليس فارغًا
+          category.toLowerCase() === 'products' ||
+          el.Categores.toLowerCase() === category.toLowerCase()
       )
       if (filteredProducts.length > 0) {
         const min = Math.min(...filteredProducts.map((el) => el.price))
         setMinPrice(min)
-        setCurrentMinPrice(min) // تحديث currentMinPrice فقط عند تغيير الفئة
+        setCurrentMinPrice(min)
       }
     }
   }, [allProducts, category, setMinPrice])
 
-  // دالة لتحديث قيمة currentMinPrice عند تحريك شريط التمرير
   const handleRangeChange = (event) => {
     const value = parseInt(event.target.value, 10)
-    setCurrentMinPrice(value) // تحديث currentMinPrice عند تحريك شريط التمرير
+    setCurrentMinPrice(value)
   }
 
-  // دالة لتحديث minPrice عند انتهاء المستخدم من التحريك
   const handleRangeFinalChange = () => {
-    setMinPrice(currentMinPrice) // تحديث minPrice في GlobalContext عند توقف التحريك
+    setMinPrice(currentMinPrice)
   }
 
   const toggleBrand = (brandName) => {
@@ -97,14 +100,12 @@ export default function FilterMenue() {
           <div className="col-12 border d-flex align-items-center gap-2">
             <div
               id="openFilter"
-              className="p-1 bg-primary col-2 d-flex justify-content-center align-items-center "
-              onClick={() => {
-                setShowBrand(!showBrand)
-              }}
+              className="p-1 bg-primary col-2 d-flex justify-content-center align-items-center"
+              onClick={() => setShowBrand(!showBrand)}
             >
               +
             </div>
-            <h2 className="m-0">brand</h2>
+            <h2 className="m-0">Brand</h2>
           </div>
           {showBrand
             ? [
@@ -112,8 +113,10 @@ export default function FilterMenue() {
                   allProducts
                     .filter(
                       (product) =>
-                        product.Categores.toLowerCase() ===
-                          category.toLowerCase() &&
+                        (!category || // التحقق من الفئة
+                          category.toLowerCase() === 'products' ||
+                          product.Categores.toLowerCase() ===
+                            category.toLowerCase()) &&
                         (!hideOutOfStock || product.stock > 0)
                     )
                     .map((brand) => brand.brand.toLowerCase())
@@ -121,7 +124,7 @@ export default function FilterMenue() {
               ].map((brandName) => (
                 <div
                   key={brandName}
-                  className="form-check d-flex align-items-center border p-2 mb-2 brand-item col-12 "
+                  className="form-check d-flex align-items-center border p-2 mb-2 brand-item col-12"
                   style={{ cursor: 'pointer' }}
                   onClick={() => {
                     const checkbox = document.getElementById(
@@ -159,16 +162,14 @@ export default function FilterMenue() {
           <div className="col-12 border d-flex align-items-center gap-2">
             <div
               id="openFilter"
-              className="p-1 bg-primary col-2 d-flex justify-content-center align-items-center "
-              onClick={() => {
-                setShowStock(!showstock)
-              }}
+              className="p-1 bg-primary col-2 d-flex justify-content-center align-items-center"
+              onClick={() => setShowStock(!showStock)}
             >
               +
             </div>
             <h2 className="m-0">Stock</h2>
           </div>
-          {showstock ? (
+          {showStock ? (
             <div
               className="border d-flex flex-row p-2 align-items-center gap-2"
               style={{ cursor: 'pointer' }}
@@ -186,26 +187,24 @@ export default function FilterMenue() {
                 onClick={(e) => e.stopPropagation()}
                 checked={hideOutOfStock}
               />
-              <h1 className="m-0">hide Out Of Stock</h1>
+              <h1 className="m-0">Hide Out Of Stock</h1>
             </div>
           ) : null}
 
           <div className="col-12 border d-flex align-items-center gap-2">
             <div
               id="openFilter"
-              className="p-1 bg-primary col-2 d-flex justify-content-center align-items-center "
-              onClick={() => {
-                setShowPrice(!showPrice)
-              }}
+              className="p-1 bg-primary col-2 d-flex justify-content-center align-items-center"
+              onClick={() => setShowPrice(!showPrice)}
             >
               +
             </div>
-            <h2 className="m-0">price</h2>
+            <h2 className="m-0">Price</h2>
           </div>
           {showPrice ? (
             <div className="col-12">
               <div className="d-flex flex-row col-12 justify-content-between">
-                <p className="m-0">{currentMinPrice}</p>{' '}
+                <p className="m-0">{currentMinPrice}</p>
                 <p className="m-0">{maxPrice}</p>
               </div>
               <input
@@ -214,9 +213,9 @@ export default function FilterMenue() {
                 min={minPrice}
                 max={maxPrice}
                 value={currentMinPrice}
-                onChange={handleRangeChange} // تحديث currentMinPrice عند التحريك
-                onMouseUp={handleRangeFinalChange} // تحديث minPrice عند انتهاء التحريك
-                onTouchEnd={handleRangeFinalChange} // للأجهزة التي تعمل باللمس
+                onChange={handleRangeChange}
+                onMouseUp={handleRangeFinalChange}
+                onTouchEnd={handleRangeFinalChange}
               />
             </div>
           ) : null}

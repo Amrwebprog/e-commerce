@@ -30,9 +30,6 @@ export default function Card(props) {
                   className="text-white bg-primary p-2 rounded-circle"
                   icon={faEye}
                 />
-                <button className="btn btn-primary add-to-cart mt-2">
-                  Add to Cart
-                </button>
               </Link>
             </div>
           </div>

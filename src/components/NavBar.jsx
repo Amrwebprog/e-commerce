@@ -20,7 +20,6 @@ export default function NavBar() {
     const fetchData = async () => {
       try {
         const res = await axios.get('http://localhost:1337/api/products')
-        console.log(res.data.data)
         setProductData(res.data.data)
 
         const uniqueCategories = [
@@ -63,19 +62,16 @@ export default function NavBar() {
                 className="dropdown-menu p-3 flex-wrap"
                 aria-labelledby="navbarDropdown"
               >
-                <div className="d-flex flex-row gap-5 col-6">
+                <div className="d-flex flex-wrap gap-5">
                   {categories.map((category, index) => (
-                    <ul key={index} className="list-group-item-dark col-sm-6">
+                    <div key={index} className="dropdown-category col-sm-6">
                       <Link
                         to={`/products/${category}`}
                         className="dropdown-item fw-bold mb-2 animate__animated animate__fadeInDown"
-                        onClick={() => {
-                          handleCatClick()
-                        }}
+                        onClick={handleCatClick}
                       >
                         {category}
                       </Link>
-
                       {[
                         ...new Set(
                           productData
@@ -93,7 +89,7 @@ export default function NavBar() {
                           </Link>
                         </li>
                       ))}
-                    </ul>
+                    </div>
                   ))}
                 </div>
               </div>

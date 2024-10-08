@@ -30,16 +30,14 @@ export default function Commentbox({ MyProduct }) {
   }
 
   useEffect(() => {
-    // تأكد من أن المنتج موجود وأنه يحتوي على product_id
     if (
       MyProduct &&
       MyProduct.length > 0 &&
       MyProduct[0].product_id !== undefined
     ) {
-      console.log('بيانات المنتج في Commentbox:', MyProduct) // طباعة بيانات المنتج
-      getComments(MyProduct[0].product_id) // جلب التعليقات بناءً على product_id
+      getComments(MyProduct[0].product_id)
     } else {
-      console.log('انتظار تحميل المنتج أو بيانات المنتج غير موجودة...')
+      null
     }
   }, [MyProduct])
 
@@ -47,6 +45,7 @@ export default function Commentbox({ MyProduct }) {
     <div className="card col-12 comment-box p-3">
       <div className="card p-2 d-flex gap-2">
         <textarea
+          id="MyComment"
           className="form-control comment-textarea"
           placeholder="اكتب تعليقك هنا"
         ></textarea>

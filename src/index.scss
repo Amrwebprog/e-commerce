@@ -4,9 +4,6 @@
   box-sizing: border-box;
 }
 
-
-
-
 .small-ads {
   min-height: 100px;
   height: 100px;
@@ -16,6 +13,15 @@
 
 .dropdown-menu {
   margin-top: 4px !important;
+  max-height: 400px;
+  /* تحديد الحد الأقصى للارتفاع */
+  overflow-y: auto;
+  /* إضافة شريط تمرير عمودي إذا لزم الأمر */
+}
+
+.dropdown-category {
+  max-width: 200px;
+  /* تحديد عرض العمود */
 }
 
 .header {
@@ -38,7 +44,6 @@
     font-size: 2rem !important;
   }
 }
-
 
 .footer-content {
   h6 {
@@ -93,7 +98,6 @@
   top: 55px !important;
 }
 
-
 @media only screen and (max-width: 600px) {
   * {
     font-size: 12px !important;
@@ -134,12 +138,10 @@
 
   .header-foter {
     h6 {
-
       font-size: 1.2rem !important;
     }
 
     h1 {
-
       font-size: 1.2rem !important;
     }
   }
@@ -153,8 +155,6 @@
   * {
     font-size: 15px !important;
   }
-
-
 }
 
 @media only screen and (min-width: 992px) {
