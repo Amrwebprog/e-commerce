@@ -4,6 +4,7 @@ import { GlobalProvider } from './components/GlobalContext'
 import { LoginProvider } from './components/loginContext'
 
 import AboutUs from './pages/aboutUsPage'
+import CartPage from './pages/cartPage'
 import HomePage from './pages/homepage'
 import LoginAndRegisterPage from './pages/logregPage'
 import PayPage from './pages/paymentPage'
@@ -17,7 +18,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="aboutus" element={<AboutUs />} />
-
+          <Route path="cart" element={<CartPage />} />
           <Route
             path="logreg"
             element={

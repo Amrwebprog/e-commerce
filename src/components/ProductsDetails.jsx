@@ -1,19 +1,62 @@
 import { faCircleCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { toast, ToastContainer } from 'react-toastify' // استيراد Toastify
+import 'react-toastify/dist/ReactToastify.css' // استيراد CSS الخاصة بـ Toastify
+import Cart from './cart'
+import { GlobalContext } from './GlobalContext'
 
 export default function ProductsDetails(props) {
+  const navigate = useNavigate()
+  const { cartToggle, setCartToggle, cartArray, setCartArray } =
+    useContext(GlobalContext)
+
   let Discount = null
   const product =
     props.MyProduct && props.MyProduct[0] ? props.MyProduct[0] : null
 
-  product.offer > 0
-    ? (Discount = product.price - (product.offer / 100) * product.price)
-    : null
-  console.log(Discount)
-  useEffect(() => {}, [])
+  if (product && product.offer > 0) {
+    Discount = product.price - (product.offer / 100) * product.price
+  }
+
+  const toggleCart = () => {
+    let updatedCartArray = [...cartArray] // استخدام cartArray الحالي
+
+    const existingItem = updatedCartArray.find(
+      (cartItem) => cartItem.id === product.id
+    )
+
+    if (existingItem) {
+      existingItem.quantity += 1
+      toast.success('تمت إضافة المنتج إلى السلة!', {
+        position: 'top-right', // الموضع
+        autoClose: 3000, // يغلق بعد 3 ثوانٍ
+      })
+    } else {
+      product.quantity = 1
+      updatedCartArray.push(product)
+      toast.success('تمت إضافة المنتج الجديد إلى السلة!', {
+        position: 'top-right',
+        autoClose: 3000,
+      })
+    }
+
+    localStorage.setItem('cart', JSON.stringify(updatedCartArray)) // تحديث localStorage
+    setCartArray(updatedCartArray) // تحديث cartArray
+    setCartToggle(true)
+  }
+
+  useEffect(() => {
+    const storedCart = localStorage.getItem('cart')
+    const cartArrayFromStorage = storedCart ? JSON.parse(storedCart) : []
+    setCartArray(cartArrayFromStorage) // تعيين cartArray بناءً على البيانات من localStorage
+  }, [setCartArray])
+
   return (
     <>
+      <ToastContainer /> {/* إضافة ToastContainer هنا */}
+      {cartToggle ? <Cart /> : null}
       {product ? (
         <div className="HandleText col-12 d-flex flex-wrap flex-column p-2 gap-4">
           <h1>{product.product_name}</h1>
@@ -85,7 +128,10 @@ export default function ProductsDetails(props) {
                 <h2>Specifications: {product.Specifications}</h2>
               </div>
               <div className="fourm d-flex flex-column gap-2 col-12 p-2">
-                <button className="col-12 btn btn-info text-white fw-bold">
+                <button
+                  className="col-12 btn btn-info text-white fw-bold"
+                  onClick={toggleCart}
+                >
                   Add to Cart
                 </button>
               </div>

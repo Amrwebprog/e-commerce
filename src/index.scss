@@ -151,6 +151,27 @@
   }
 }
 
+.for-height {
+  min-height: 400px !important;
+
+}
+
+.bg-lightt {
+  background-color: rgb(203 203 203) !important;
+
+}
+
+.cart {
+  @media only screen and (max-width: 768px) {
+    width: 100% !important;
+    height: 30% !important;
+  }
+}
+
+#pointer {
+  cursor: pointer;
+}
+
 @media only screen and (min-width: 768px) {
   * {
     font-size: 15px !important;

@@ -1,6 +1,6 @@
 import { faCartFlatbedSuitcase } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 
 import { Link } from 'react-router-dom'
 import useLogout, { useCheckToken } from '../customhooks/CostmHooks'
@@ -12,14 +12,13 @@ export default function Header() {
   const token = localStorage.getItem('Token')
   const { logout } = useLogout()
   const { userData, isVerified } = useCheckToken()
-  const { cartToggle, setCartToggle } = useContext(GlobalContext)
+  const { cartToggle, setCartToggle, cartArray } = useContext(GlobalContext)
+
   const togglecart = () => {
     setCartToggle(!cartToggle)
     console.log(cartToggle)
   }
-  useEffect(() => {
-    isVerified ? console.log(userData) : null
-  }, [])
+
   return (
     <>
       {cartToggle ? <Cart /> : null}
@@ -48,6 +47,12 @@ export default function Header() {
                   <Link to="/logreg" className="text-decoration-none">
                     Login/Register
                   </Link>
+                  <FontAwesomeIcon
+                    style={{ cursor: 'pointer' }}
+                    onClick={togglecart}
+                    className="fs-3"
+                    icon={faCartFlatbedSuitcase}
+                  />
                 </>
               )}
             </div>

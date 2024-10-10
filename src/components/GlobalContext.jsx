@@ -306,6 +306,7 @@ const GlobalProvider = ({ children }) => {
       stock: '10',
     },
   ]
+  const [cartArray, setCartArray] = useState([])
   const [cartToggle, setCartToggle] = useState(false)
   const [sideNavToggle, setSideNavToggle] = useState(false)
   const [maxPrice, setMaxPrice] = useState()
@@ -342,6 +343,8 @@ const GlobalProvider = ({ children }) => {
   return (
     <GlobalContext.Provider
       value={{
+        cartArray,
+        setCartArray,
         sideNavToggle,
         setSideNavToggle,
         maxPrice,
