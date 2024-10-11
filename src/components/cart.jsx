@@ -105,7 +105,7 @@ export default function Cart() {
             navigate('/cart')
           }}
         >
-          Go to Checkout
+          Go to Cart
         </button>
       </div>
     </div>

@@ -1,0 +1,56 @@
+.mycard-height {
+  height: 400px;
+}
+
+.headerbg {
+  background-color: gray;
+}
+
+.payment-card {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.selected-payment-section {
+
+  padding: 20px;
+  border: 1px solid #ced4da;
+  border-radius: 0.5rem;
+  background-color: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.overlay {
+  display: flex;
+  position: fixed;
+  z-index: 105005050;
+  background-color: rgba(41, 41, 41, 0.432);
+  width: 100%;
+  height: 100%;
+}
+
+.paper {
+  height: 80%;
+  min-width: 80%;
+  min-height: 80%;
+}
+
+.doc {
+  padding: 20px;
+  min-width: 100%;
+  min-height: 100%;
+  border: 5px solid black !important;
+}
+
+.line {
+  height: 1px;
+  background-color: black;
+  width: 100%;
+}

@@ -1,6 +1,6 @@
 import { faCartFlatbedSuitcase } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useContext, useState } from 'react'
+import { useContext, useEffect } from 'react'
 
 import { Link } from 'react-router-dom'
 import useLogout, { useCheckToken } from '../customhooks/CostmHooks'
@@ -8,16 +8,19 @@ import { GlobalContext } from './GlobalContext'
 import Cart from './cart'
 
 export default function Header() {
-  const [verifyAccount, setverifyAccount] = useState(false)
-  const token = localStorage.getItem('Token')
   const { logout } = useLogout()
   const { userData, isVerified } = useCheckToken()
-  const { cartToggle, setCartToggle, cartArray } = useContext(GlobalContext)
+  const { cartToggle, setCartToggle, cartArray, setCartArray } =
+    useContext(GlobalContext)
 
   const togglecart = () => {
     setCartToggle(!cartToggle)
-    console.log(cartToggle)
   }
+  useEffect(() => {
+    const storedCart = localStorage.getItem('cart')
+    const cartArrayFromStorage = storedCart ? JSON.parse(storedCart) : []
+    setCartArray(cartArrayFromStorage)
+  }, [setCartArray])
 
   return (
     <>
@@ -35,24 +38,42 @@ export default function Header() {
                   <h1 className="text-white btn btn-danger" onClick={logout}>
                     logout
                   </h1>
-                  <FontAwesomeIcon
-                    style={{ cursor: 'pointer' }}
-                    onClick={togglecart}
-                    className="fs-3"
-                    icon={faCartFlatbedSuitcase}
-                  />
+                  <div className="position-relative">
+                    <FontAwesomeIcon
+                      style={{ cursor: 'pointer' }}
+                      onClick={togglecart}
+                      className="fs-3"
+                      icon={faCartFlatbedSuitcase}
+                    />
+                    <h1
+                      className="position-absolute top-0 background-color text-dark rounded-circle p-1"
+                      style={{ cursor: 'pointer' }}
+                      onClick={togglecart}
+                    >
+                      <b>{cartArray.length}</b>
+                    </h1>
+                  </div>
                 </>
               ) : (
                 <>
                   <Link to="/logreg" className="text-decoration-none">
                     Login/Register
                   </Link>
-                  <FontAwesomeIcon
-                    style={{ cursor: 'pointer' }}
-                    onClick={togglecart}
-                    className="fs-3"
-                    icon={faCartFlatbedSuitcase}
-                  />
+                  <div className="position-relative">
+                    <FontAwesomeIcon
+                      style={{ cursor: 'pointer' }}
+                      onClick={togglecart}
+                      className="fs-3"
+                      icon={faCartFlatbedSuitcase}
+                    />
+                    <h1
+                      className="position-absolute top-0 background-color text-dark rounded-circle p-1"
+                      style={{ cursor: 'pointer' }}
+                      onClick={togglecart}
+                    >
+                      <b>{cartArray.length}</b>
+                    </h1>
+                  </div>
                 </>
               )}
             </div>

@@ -42,15 +42,15 @@ export default function ProductsDetails(props) {
       })
     }
 
-    localStorage.setItem('cart', JSON.stringify(updatedCartArray)) // تحديث localStorage
-    setCartArray(updatedCartArray) // تحديث cartArray
+    localStorage.setItem('cart', JSON.stringify(updatedCartArray))
+    setCartArray(updatedCartArray)
     setCartToggle(true)
   }
 
   useEffect(() => {
     const storedCart = localStorage.getItem('cart')
     const cartArrayFromStorage = storedCart ? JSON.parse(storedCart) : []
-    setCartArray(cartArrayFromStorage) // تعيين cartArray بناءً على البيانات من localStorage
+    setCartArray(cartArrayFromStorage)
   }, [setCartArray])
 
   return (

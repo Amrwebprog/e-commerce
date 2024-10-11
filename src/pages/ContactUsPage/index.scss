@@ -1,0 +1,35 @@
+.contact-us {
+  h1 {
+    color: #6a11cb;
+    font-size: 2rem;
+  }
+
+  h2 {
+    margin-top: 20px;
+    font-size: 1.5rem;
+  }
+
+  .form-control {
+    border-radius: 0.25rem;
+  }
+
+  button {
+    margin-top: 10px;
+  }
+
+  ul {
+    li {
+      margin-bottom: 10px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 1.8rem;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+    }
+  }
+}

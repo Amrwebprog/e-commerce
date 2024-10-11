@@ -72,23 +72,31 @@ export default function NavBar() {
                       >
                         {category}
                       </Link>
-                      {[
-                        ...new Set(
-                          productData
-                            .filter((product) => product.Categores === category)
-                            .map((product) => product.brand)
-                        ),
-                      ].map((brand, i) => (
-                        <li key={i}>
-                          <Link
-                            onClick={() => handleBrandClick(brand)}
-                            className="dropdown-item animate__animated animate__lightSpeedInLeft"
-                            to={`/products/${category}`}
-                          >
-                            {brand}
-                          </Link>
-                        </li>
-                      ))}
+                      <ul>
+                        {' '}
+                        {/* إضافة <ul> هنا لاحتواء عناصر <li> الخاصة بالعلامات التجارية */}
+                        {[
+                          ...new Set(
+                            productData
+                              .filter(
+                                (product) => product.Categores === category
+                              )
+                              .map((product) => product.brand)
+                          ),
+                        ].map((brand, i) => (
+                          <li key={i}>
+                            {' '}
+                            {/* الآن <li> داخل <ul> مما يحل المشكلة */}
+                            <Link
+                              onClick={() => handleBrandClick(brand)}
+                              className="dropdown-item animate__animated animate__lightSpeedInLeft"
+                              to={`/products/${category}`}
+                            >
+                              {brand}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   ))}
                 </div>

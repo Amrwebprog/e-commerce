@@ -367,3 +367,5 @@ const GlobalProvider = ({ children }) => {
 }
 
 export { GlobalContext, GlobalProvider }
+// اخطاء المشروع
+// فكرة عمل تسجيل دخول و وضع منتجات في سلة المشتريات

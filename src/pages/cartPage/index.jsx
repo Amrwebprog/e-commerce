@@ -9,7 +9,7 @@ import NavBar from '../../components/NavBar'
 export default function CartPage() {
   const { cartArray, setCartArray } = useContext(GlobalContext)
   const navigate = useNavigate()
-
+  let finalprice = 0
   const reduceNumber = (id) => {
     setCartArray((prevCartArray) =>
       prevCartArray.map((el) => {
@@ -33,6 +33,11 @@ export default function CartPage() {
       })
     )
   }
+  const deleteItem = (id) => {
+    const updatedCartArray = cartArray.filter((el) => el.id !== id)
+    setCartArray(updatedCartArray)
+  }
+
   return (
     <div>
       <Header />
@@ -85,6 +90,9 @@ export default function CartPage() {
                             type="button"
                             className="btn-close"
                             aria-label="Close"
+                            onClick={() => {
+                              deleteItem(el.id)
+                            }}
                           ></button>
                         </div>
                       </li>
@@ -95,10 +103,59 @@ export default function CartPage() {
                 <h1 className="text-danger mt-5 mb-5">Your cart is Empty</h1>
               )}
             </ul>
+            <div className="col-12 d-flex flex-row-reverse">
+              <div className="col-4">
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">product Name</th>
+                      <th scope="col">quantity</th>
+                      <th scope="col">price</th>
+                      <th scope="col">total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {cartArray.map((el, index) => {
+                      finalprice += el.price * el.quantity
+                      console.log(finalprice)
+                      return (
+                        <tr key={index}>
+                          <th scope="row">{index + 1}</th>
+                          <td>{el.product_name}</td>
+                          <td>{el.quantity}</td>
+                          <td>{el.price}</td>
+                          <td>{el.price * el.quantity}</td>
+                        </tr>
+                      )
+                    })}
+                    <tr>
+                      <th scope="row">Final Price</th>
+                      <td>{finalprice}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
-          <button onClick={navigate('/products')} className="btn btn-primary">
-            Countinue shoping
-          </button>
+          <div className="d-flex justify-content-between col-12">
+            <button
+              onClick={() => {
+                navigate('/products')
+              }}
+              className="btn btn-primary"
+            >
+              Countinue shoping
+            </button>
+            <button
+              className="btn btn-secondary"
+              onClick={() => {
+                navigate('/checkout')
+              }}
+            >
+              Countinue Checkout
+            </button>
+          </div>
         </div>
       </div>
       <div></div>

@@ -1,0 +1,40 @@
+.about-us {
+  background-color: #f8f9fa; // لون خلفية خفيف
+  padding: 20px;
+
+  h1 {
+    color: #6a11cb; // اللون الرئيسي للعناوين
+    margin-bottom: 30px;
+  }
+
+  h2 {
+    margin-top: 20px;
+    color: #333; // لون العناوين الفرعية
+  }
+
+  .branch-card {
+    background: white; // خلفية بيضاء للبطاقات
+    border-radius: 0.5rem; // زوايا مدورة
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // ظل خفيف للبطاقات
+    transition: transform 0.3s; // تأثير الحركة عند التحويم
+
+    &:hover {
+      transform: translateY(-5px); // حركة خفيفة عند التحويم
+    }
+
+    h3 {
+      margin-top: 0;
+      color: #6a11cb; // اللون الرئيسي لعناوين الفروع
+    }
+
+    p {
+      margin-bottom: 0; // إزالة الهوامش السفلية
+      color: #555; // لون النص العادي
+    }
+  }
+
+  iframe {
+    border-radius: 0.5rem; // زوايا مدورة للخريطة
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // ظل خفيف للخريطة
+  }
+}

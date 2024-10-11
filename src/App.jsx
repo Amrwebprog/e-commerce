@@ -5,6 +5,8 @@ import { LoginProvider } from './components/loginContext'
 
 import AboutUs from './pages/aboutUsPage'
 import CartPage from './pages/cartPage'
+import CheckoutPage from './pages/CheckoutPage'
+import ContactusPage from './pages/ContactUsPage'
 import HomePage from './pages/homepage'
 import LoginAndRegisterPage from './pages/logregPage'
 import PayPage from './pages/paymentPage'
@@ -19,6 +21,8 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="aboutus" element={<AboutUs />} />
           <Route path="cart" element={<CartPage />} />
+          <Route path="Checkout" element={<CheckoutPage />} />
+          <Route path="contactus" element={<ContactusPage />} />
           <Route
             path="logreg"
             element={
